@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import Image from "./Images/Banner.jpg";
+import Header from "./Components/Header";
+import Form from "./Components/Form";
 
 class App extends React.Component {
   render() {
@@ -12,7 +14,8 @@ class App extends React.Component {
         />
 
         <div className="App">
-          <h1>Artist Data</h1>
+          <Header />
+          <Form />
         </div>
       </div>
     );
