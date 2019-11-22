@@ -4,19 +4,14 @@ function Form() {
   return (
     <div>
       <p>Search an Artist to learn more about their lyrics below</p>
-      <form>
+      <form onSubmit={e => e.preventDefault()}>
         <input
           className="artistinput"
           type="text"
           placeholder="Enter the Artist's name here..."
         />
         <br />
-        <input
-          type="submit"
-          onSubmit={e => {
-            e.preventDefault();
-          }}
-        />
+        <button type="submit">Get Results</button>
       </form>
     </div>
   );
