@@ -1,6 +1,6 @@
 import React from "react";
 
 function Header() {
-  return <h1>Artist Data</h1>;
+  return <h2>Artist Data</h2>;
 }
 export default Header;
