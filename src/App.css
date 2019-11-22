@@ -2,6 +2,9 @@
   text-align: center;
   color: rgb(51, 49, 49);
 }
+body {
+  background-color: rgb(253, 251, 251);
+}
 img {
   width: 100%;
   object-fit: cover;
@@ -13,6 +16,8 @@ img {
   border: 1.5px solid whitesmoke;
   padding: 8px;
   margin-bottom: 5px;
+  border-top: none;
+  border-right: none;
 }
 button {
   padding: 8px 0px;
