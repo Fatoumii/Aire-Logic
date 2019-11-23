@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import Image from "./Images/Banner.jpg";
 import Header from "./Components/Header";
-import * as api from "./APICalls/index";
 import Form from "./Components/Form";
 
 class App extends React.Component {

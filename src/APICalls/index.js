@@ -1,6 +1,17 @@
 import axios from "axios";
 
-export const getArtistData = (artist, track) => {
-  const { data } = axios.get(`https://api.lyrics.ovh/v1/${artist}/${track}`);
-  return data;
+export const searchArtistData = async artist => {
+  const { data } = await axios.get(
+    `http://musicbrainz.org/ws/2/artist?query=${artist}&fmt=json`
+  );
+  return data.artists[0].id;
+};
+
+export const browseArtistData = async id => {
+  const { data } = await axios.get(
+    `http://musicbrainz.org/ws/2/release?artist=${id}&status=official&type=single&limit=100&fmt=json`
+  );
+  return data.releases.map(track => {
+    return track.title;
+  });
 };
