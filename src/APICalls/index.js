@@ -7,11 +7,19 @@ export const searchArtistData = async artist => {
   return data.artists[0].id;
 };
 
-export const browseArtistData = async id => {
+export const browseArtistTracks = async id => {
   const { data } = await axios.get(
-    `http://musicbrainz.org/ws/2/release?artist=${id}&status=official&type=single&limit=100&fmt=json`
+    `http://musicbrainz.org/ws/2/work?artist=${id}&limit=100&fmt=json`
   );
-  return data.releases.map(track => {
+  return data.works.map(track => {
+    return track.title;
+  });
+};
+export const remainingArtistTracks = async id => {
+  const { data } = await axios.get(
+    `http://musicbrainz.org/ws/2/work?artist=${id}&limit=100&offset=100&fmt=json`
+  );
+  return data.works.map(track => {
     return track.title;
   });
 };

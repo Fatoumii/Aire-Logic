@@ -9,6 +9,7 @@ class Form extends React.Component {
   };
   render() {
     const { inputArtist } = this.state;
+    console.log(this.state.listofTracks);
     return (
       <div>
         <p>Search an Artist to learn more about their lyrics below:</p>
@@ -39,8 +40,9 @@ class Form extends React.Component {
     const ID = await api.searchArtistData(inputArtist);
     this.setState({ artistID: ID });
 
-    const listofTracks = await api.browseArtistData(artistID);
-    this.setState({ listofTracks });
+    const first100 = await api.browseArtistTracks(artistID);
+    const remainingTracks = await api.remainingArtistTracks(artistID);
+    this.setState({ listofTracks: [...first100, ...remainingTracks] });
   };
 }
 
