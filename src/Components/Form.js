@@ -8,8 +8,9 @@ class Form extends React.Component {
     listofTracks: [],
     lengthOfSongs: []
   };
+
   render() {
-    const { inputArtist } = this.state;
+    const { inputArtist, lengthOfSongs } = this.state;
     console.log(this.state.lengthOfSongs);
     return (
       <div>
@@ -25,6 +26,20 @@ class Form extends React.Component {
           <br />
           <button type="submit">Get Results</button>
         </form>
+        <p>
+          {this.state.lengthOfSongs > 1
+            ? `The average words ${inputArtist[0].toUpperCase() +
+                inputArtist.slice(1)} has in her songs are ${lengthOfSongs}!`
+            : null}
+        </p>
+        <p>
+          {this.state.lengthOfSongs > 1
+            ? `${inputArtist[0].toUpperCase() +
+                inputArtist.slice(
+                  1
+                )}'s shortest song has ${lengthOfSongs} words, while the longest song has ${lengthOfSongs} words. Cool hey..`
+            : null}
+        </p>
       </div>
     );
   }
@@ -46,13 +61,15 @@ class Form extends React.Component {
     this.setState({ listofTracks: [...first100, ...remainingTracks] });
 
     listofTracks.map(track => {
-      return api.getLyrics(inputArtist, track).then(res => {
-        this.setState({ lengthOfSongs: [res] });
-      });
+      return api
+        .getLyrics(inputArtist, track)
+        .then(response => {
+          this.setState({ lengthOfSongs: response.split(" ").length });
+        })
+        .catch(error => {
+          console.log("ERROR");
+        });
     });
   };
 }
-
 export default Form;
-
-//sort -min/max and average

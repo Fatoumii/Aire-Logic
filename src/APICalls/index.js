@@ -25,8 +25,7 @@ export const remainingArtistTracks = async id => {
 };
 
 export const getLyrics = async (artist, track) => {
-  const { data } = await axios.get(
-    `https://api.lyrics.ovh/v1/${artist}/${track}`
-  );
+  const { data } = await axios.get(`https://api.lyrics.ovh/v1/${artist}/${track}
+`);
   return data.lyrics;
 };
