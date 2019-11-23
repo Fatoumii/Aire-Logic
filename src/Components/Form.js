@@ -5,11 +5,12 @@ class Form extends React.Component {
   state = {
     inputArtist: "",
     artistID: "",
-    listofTracks: []
+    listofTracks: [],
+    lengthOfSongs: []
   };
   render() {
     const { inputArtist } = this.state;
-    console.log(this.state.listofTracks);
+    console.log(this.state.lengthOfSongs);
     return (
       <div>
         <p>Search an Artist to learn more about their lyrics below:</p>
@@ -34,7 +35,7 @@ class Form extends React.Component {
   };
 
   handleSubmit = async e => {
-    const { inputArtist, artistID } = this.state;
+    const { inputArtist, artistID, listofTracks } = this.state;
     e.preventDefault();
 
     const ID = await api.searchArtistData(inputArtist);
@@ -43,13 +44,15 @@ class Form extends React.Component {
     const first100 = await api.browseArtistTracks(artistID);
     const remainingTracks = await api.remainingArtistTracks(artistID);
     this.setState({ listofTracks: [...first100, ...remainingTracks] });
+
+    listofTracks.map(track => {
+      return api.getLyrics(inputArtist, track).then(res => {
+        this.setState({ lengthOfSongs: [res] });
+      });
+    });
   };
 }
 
 export default Form;
 
-//now have list of tracks needed to comapre
-//use other api to run through each track and then get the length - push into an array
 //sort -min/max and average
-//try and get the song name that is  min/max
-//state- length of songs
