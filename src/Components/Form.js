@@ -12,6 +12,7 @@ class Form extends React.Component {
 
   render() {
     const { inputArtist, lengthOfSongs, loading } = this.state;
+
     return (
       <div className="bodyOfText">
         <p>Search an Artist to learn more about their lyrics below:</p>
@@ -34,7 +35,7 @@ class Form extends React.Component {
             <p>
               {lengthOfSongs.length > 1
                 ? `The average words ${inputArtist[0].toUpperCase() +
-                    inputArtist.slice(1)} has in her songs are ${Math.round(
+                    inputArtist.slice(1)} has in their songs are ${Math.round(
                     this.getAverage(lengthOfSongs)
                   )}!`
                 : null}
