@@ -6,11 +6,12 @@ class Form extends React.Component {
     inputArtist: "",
     artistID: "",
     listofTracks: [],
-    lengthOfSongs: []
+    lengthOfSongs: [],
+    loading: false
   };
 
   render() {
-    const { inputArtist, lengthOfSongs } = this.state;
+    const { inputArtist, lengthOfSongs, loading } = this.state;
     console.log(this.state);
     return (
       <div className="bodyOfText">
@@ -27,29 +28,34 @@ class Form extends React.Component {
           <button type="submit">Get Results</button>
           <button onClick={this.handleClick}>Reset</button>
         </form>
-
-        <p>
-          {lengthOfSongs.length > 1
-            ? `The average words ${inputArtist[0].toUpperCase() +
-                inputArtist.slice(1)} has in her songs are ${Math.round(
-                this.getAverage(lengthOfSongs)
-              )}!`
-            : null}
-        </p>
-        <p>
-          {lengthOfSongs.length > 1
-            ? `${inputArtist[0].toUpperCase() +
-                inputArtist.slice(1)}'s shortest song has ${
-                lengthOfSongs.sort((a, b) => {
-                  return a - b;
-                })[0]
-              } words, while the longest song has ${
-                lengthOfSongs.sort((a, b) => {
-                  return a - b;
-                })[lengthOfSongs.length - 1]
-              } words.`
-            : null}
-        </p>
+        {loading ? (
+          "Loading..."
+        ) : (
+          <div>
+            <p>
+              {lengthOfSongs.length > 1
+                ? `The average words ${inputArtist[0].toUpperCase() +
+                    inputArtist.slice(1)} has in her songs are ${Math.round(
+                    this.getAverage(lengthOfSongs)
+                  )}!`
+                : null}
+            </p>
+            <p>
+              {lengthOfSongs.length > 1
+                ? `${inputArtist[0].toUpperCase() +
+                    inputArtist.slice(1)}'s shortest song has ${
+                    lengthOfSongs.sort((a, b) => {
+                      return a - b;
+                    })[0]
+                  } words, while the longest song has ${
+                    lengthOfSongs.sort((a, b) => {
+                      return a - b;
+                    })[lengthOfSongs.length - 1]
+                  } words.`
+                : null}
+            </p>
+          </div>
+        )}
       </div>
     );
   }
@@ -97,7 +103,8 @@ class Form extends React.Component {
             lengthOfSongs: [
               ...this.state.lengthOfSongs,
               response.split(" ").length
-            ]
+            ],
+            loading: false
           });
         })
         .catch(e => {
@@ -106,11 +113,10 @@ class Form extends React.Component {
     });
     this.setState({
       artistID: ID,
-      listofTracks: allTracks
+      listofTracks: allTracks,
+      loading: true
       // lengthOfSongs: wordsInTracks
     });
   };
 }
 export default Form;
-
-//not giving end result - going through loop
