@@ -28,9 +28,34 @@ button {
   border-radius: 1.5px;
   width: 10%;
   border: 2px solid whitesmoke;
+  margin: 3px;
 }
 button:hover {
   background-color: rgb(247, 244, 244);
   border: 2px solid rgb(247, 244, 244);
   transition: 1s;
+}
+
+@media only screen and (max-width: 600px) {
+  h2 {
+    font-size: 22px;
+    margin-bottom: 10%;
+    margin-top: 10%;
+  }
+  p {
+    font-size: 14.5px;
+    margin: 8% 5%;
+  }
+  .artistinput {
+    margin-bottom: 10%;
+    width: 60%;
+  }
+  button {
+    width: 27%;
+    background-color: whitesmoke;
+    font-size: 10px;
+  }
+  .result {
+    margin: 8% 5%;
+  }
 }
