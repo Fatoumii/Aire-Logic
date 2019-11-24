@@ -27,22 +27,34 @@ class Form extends React.Component {
           <button type="submit">Get Results</button>
         </form>
         <p>
-          {this.state.lengthOfSongs > 1
+          {lengthOfSongs.length > 1
             ? `The average words ${inputArtist[0].toUpperCase() +
-                inputArtist.slice(1)} has in her songs are ${lengthOfSongs}!`
+                inputArtist.slice(1)} has in her songs are ${this.getAverage(
+                lengthOfSongs
+              )}!`
             : null}
         </p>
         <p>
-          {this.state.lengthOfSongs > 1
+          {lengthOfSongs.length > 1
             ? `${inputArtist[0].toUpperCase() +
-                inputArtist.slice(
-                  1
-                )}'s shortest song has ${lengthOfSongs} words, while the longest song has ${lengthOfSongs} words. Cool hey..`
+                inputArtist.slice(1)}'s shortest song has ${
+                lengthOfSongs.sort()[0]
+              } words, while the longest song has ${
+                lengthOfSongs.sort()[lengthOfSongs.length - 1]
+              } words. Cool hey..`
             : null}
         </p>
       </div>
     );
   }
+
+  getAverage = lengthOfSongs => {
+    let sum = 0;
+    for (let i = 0; i < lengthOfSongs.length; i++) {
+      sum += lengthOfSongs[i];
+    }
+    return sum / lengthOfSongs.length;
+  };
 
   handleChange = event => {
     const { value } = event.target;
@@ -64,7 +76,12 @@ class Form extends React.Component {
       return api
         .getLyrics(inputArtist, track)
         .then(response => {
-          this.setState({ lengthOfSongs: response.split(" ").length });
+          this.setState({
+            lengthOfSongs: [
+              ...this.state.lengthOfSongs,
+              response.split(" ").length
+            ]
+          });
         })
         .catch(error => {
           console.log("ERROR");
@@ -73,3 +90,5 @@ class Form extends React.Component {
   };
 }
 export default Form;
+
+//make sure button gives result on first click
