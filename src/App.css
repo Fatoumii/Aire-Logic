@@ -35,7 +35,9 @@ button:hover {
   border: 2px solid rgb(247, 244, 244);
   transition: 1s;
 }
-
+.bodyOfText {
+  margin: 0% 15%;
+}
 @media only screen and (max-width: 600px) {
   h2 {
     font-size: 22px;
@@ -55,7 +57,7 @@ button:hover {
     background-color: whitesmoke;
     font-size: 10px;
   }
-  .result {
-    margin: 8% 5%;
+  .bodyOfText {
+    margin: 5% 8%;
   }
 }

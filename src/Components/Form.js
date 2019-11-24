@@ -13,7 +13,7 @@ class Form extends React.Component {
     const { inputArtist, lengthOfSongs } = this.state;
     console.log(this.state.lengthOfSongs);
     return (
-      <div>
+      <div className="bodyOfText">
         <p>Search an Artist to learn more about their lyrics below:</p>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -27,30 +27,29 @@ class Form extends React.Component {
           <button type="submit">Get Results</button>
           <button onClick={this.handleClick}>Reset</button>
         </form>
-        <div className="result">
-          <p>
-            {lengthOfSongs.length > 1
-              ? `The average words ${inputArtist[0].toUpperCase() +
-                  inputArtist.slice(1)} has in her songs are ${Math.round(
-                  this.getAverage(lengthOfSongs)
-                )}!`
-              : null}
-          </p>
-          <p>
-            {lengthOfSongs.length > 1
-              ? `${inputArtist[0].toUpperCase() +
-                  inputArtist.slice(1)}'s shortest song has ${
-                  lengthOfSongs.sort((a, b) => {
-                    return a - b;
-                  })[0]
-                } words, while the longest song has ${
-                  lengthOfSongs.sort((a, b) => {
-                    return a - b;
-                  })[lengthOfSongs.length - 1]
-                } words.`
-              : null}
-          </p>
-        </div>
+
+        <p>
+          {lengthOfSongs.length > 1
+            ? `The average words ${inputArtist[0].toUpperCase() +
+                inputArtist.slice(1)} has in her songs are ${Math.round(
+                this.getAverage(lengthOfSongs)
+              )}!`
+            : null}
+        </p>
+        <p>
+          {lengthOfSongs.length > 1
+            ? `${inputArtist[0].toUpperCase() +
+                inputArtist.slice(1)}'s shortest song has ${
+                lengthOfSongs.sort((a, b) => {
+                  return a - b;
+                })[0]
+              } words, while the longest song has ${
+                lengthOfSongs.sort((a, b) => {
+                  return a - b;
+                })[lengthOfSongs.length - 1]
+              } words.`
+            : null}
+        </p>
       </div>
     );
   }
@@ -82,14 +81,14 @@ class Form extends React.Component {
   };
 
   handleSubmit = async e => {
-    const { inputArtist, artistID, listofTracks } = this.state;
+    const { inputArtist, listofTracks } = this.state;
     e.preventDefault();
 
     const ID = await api.searchArtistData(inputArtist);
     this.setState({ artistID: ID });
 
-    const first100 = await api.browseArtistTracks(artistID);
-    const remainingTracks = await api.remainingArtistTracks(artistID);
+    const first100 = await api.browseArtistTracks(ID);
+    const remainingTracks = await api.remainingArtistTracks(ID);
     this.setState({ listofTracks: [...first100, ...remainingTracks] });
 
     listofTracks.map(track => {
@@ -112,3 +111,4 @@ class Form extends React.Component {
 export default Form;
 
 //make sure button gives result on first click
+//not giving end result - going through loop

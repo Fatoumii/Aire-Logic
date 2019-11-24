@@ -1,6 +1,6 @@
 # Artist Data
 
-A responsive project where when given an artist, details regarding their lyrics appear with visual graphics using React and CSS, with data being requested from ...
+A responsive project where when given an artist, details regarding their lyrics appear with visual graphics using React and CSS, with data being requested from `https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2` and `https://lyricsovh.docs.apiary.io/#reference`.
 
 ## Getting Started
 
