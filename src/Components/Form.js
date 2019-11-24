@@ -12,7 +12,6 @@ class Form extends React.Component {
 
   render() {
     const { inputArtist, lengthOfSongs, loading } = this.state;
-    console.log(this.state);
     return (
       <div className="bodyOfText">
         <p>Search an Artist to learn more about their lyrics below:</p>
@@ -115,7 +114,6 @@ class Form extends React.Component {
       artistID: ID,
       listofTracks: allTracks,
       loading: true
-      // lengthOfSongs: wordsInTracks
     });
   };
 }
