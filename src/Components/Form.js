@@ -38,9 +38,13 @@ class Form extends React.Component {
           {lengthOfSongs.length > 1
             ? `${inputArtist[0].toUpperCase() +
                 inputArtist.slice(1)}'s shortest song has ${
-                lengthOfSongs.sort()[0]
+                lengthOfSongs.sort((a, b) => {
+                  return a - b;
+                })[0]
               } words, while the longest song has ${
-                lengthOfSongs.sort()[lengthOfSongs.length - 1]
+                lengthOfSongs.sort((a, b) => {
+                  return a - b;
+                })[lengthOfSongs.length - 1]
               } words. Cool hey..`
             : null}
         </p>
