@@ -11,7 +11,7 @@ class Form extends React.Component {
 
   render() {
     const { inputArtist, lengthOfSongs } = this.state;
-    console.log(this.state.lengthOfSongs);
+    console.log(this.state);
     return (
       <div className="bodyOfText">
         <p>Search an Artist to learn more about their lyrics below:</p>
@@ -81,18 +81,16 @@ class Form extends React.Component {
   };
 
   handleSubmit = async e => {
-    const { inputArtist, listofTracks } = this.state;
+    const { inputArtist } = this.state;
     e.preventDefault();
 
     const ID = await api.searchArtistData(inputArtist);
-    this.setState({ artistID: ID });
-
     const first100 = await api.browseArtistTracks(ID);
     const remainingTracks = await api.remainingArtistTracks(ID);
-    this.setState({ listofTracks: [...first100, ...remainingTracks] });
+    const allTracks = [...first100, ...remainingTracks];
 
-    listofTracks.map(track => {
-      return api
+    allTracks.map(async track => {
+      return await api
         .getLyrics(inputArtist, track)
         .then(response => {
           this.setState({
@@ -102,13 +100,17 @@ class Form extends React.Component {
             ]
           });
         })
-        .catch(error => {
+        .catch(e => {
           console.log("ERROR");
         });
+    });
+    this.setState({
+      artistID: ID,
+      listofTracks: allTracks
+      // lengthOfSongs: wordsInTracks
     });
   };
 }
 export default Form;
 
-//make sure button gives result on first click
 //not giving end result - going through loop
